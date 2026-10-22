@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.14, pytest-9.1.1, pluggy-1.7.0 -- /Users/aiden-it-consulting/Library/Mobile Documents/com~apple~CloudDocs/NEXO-RAIDEN/Techworld - Nana/DevOps/Study Guide/Phase 5 -  TWN DevOps Bootcamp Portfolio/twn-capstone-06-website-recovery/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/aiden-it-consulting/Library/Mobile Documents/com~apple~CloudDocs/NEXO-RAIDEN/Techworld - Nana/DevOps/Study Guide/Phase 5 -  TWN DevOps Bootcamp Portfolio/twn-capstone-06-website-recovery
+configfile: pyproject.toml
+collecting ... collected 17 items
+
+tests/test_health.py::test_healthy_http_response PASSED                  [  5%]
+tests/test_health.py::test_unhealthy_http_response PASSED                [ 11%]
+tests/test_health.py::test_connection_failure PASSED                     [ 17%]
+tests/test_health.py::test_timeout PASSED                                [ 23%]
+tests/test_health.py::test_rejects_invalid_url_scheme PASSED             [ 29%]
+tests/test_health.py::test_rejects_invalid_timeout PASSED                [ 35%]
+tests/test_health.py::test_health_result_is_immutable PASSED             [ 41%]
+tests/test_monitor.py::test_alert_is_emitted_once_and_recovery_is_reported PASSED [ 47%]
+tests/test_monitor.py::test_recovery_attempted_once_per_incident PASSED  [ 52%]
+tests/test_monitor.py::test_recovery_failure_does_not_stop_monitoring PASSED [ 58%]
+tests/test_notifications.py::test_alert_and_recovery_notifications PASSED [ 64%]
+tests/test_notifications.py::test_notification_failure_does_not_stop_monitoring PASSED [ 70%]
+tests/test_recovery.py::test_restart_uses_explicit_container PASSED      [ 76%]
+tests/test_recovery.py::test_rejects_unapproved_container_name PASSED    [ 82%]
+tests/test_recovery.py::test_docker_failure_is_sanitized PASSED          [ 88%]
+tests/test_telegram.py::test_sends_notification_using_https_post PASSED  [ 94%]
+tests/test_telegram.py::test_http_failure_does_not_expose_token PASSED   [100%]
+
+============================== 17 passed in 0.04s ==============================
