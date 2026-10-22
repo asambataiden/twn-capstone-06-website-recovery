@@ -6,12 +6,29 @@ import time
 from collections.abc import Callable
 
 from website_recovery.health import HealthCheckResult, check_website
+from website_recovery.notifications import Notification, EventType, Notifier
 
 logger = logging.getLogger(__name__)
 
 HealthChecker = Callable[[str], HealthCheckResult]
 Sleeper = Callable[[float], None]
 
+
+def send_notification(
+        notifier: Notifier | None,
+        notification: Notification,
+) -> None:
+    """Attempt notification delivery without stopping monitoring."""
+    if notifier is None:
+        return
+
+    try:
+        notifier.send(notification)
+    except Exception:
+        logger.exception(
+            "Notification delivery failed for event=%s",
+            notification.event_type.value,
+        )
 
 def monitor_website(
         url: str,
@@ -21,6 +38,7 @@ def monitor_website(
         checker: HealthChecker | None = None,
         sleeper: Sleeper = time.sleep,
         max_checks: int | None = None,
+        notifier: Notifier | None = None,
 ) -> None:
     """Monitor a website and report incident state transitions.
 
@@ -63,10 +81,13 @@ def monitor_website(
                 logger.info("RECOVERED: website is healthy again")
                 incident_active = False
 
-            logger.info(
-                "HEALTHY: status_code=%s",
-                result.status_code,
-            )
+                send_notification(
+                    notifier,
+                    Notification(
+                        event_type=EventType.RECOVERED,
+                        message=f"Website {url} is healthy again.",
+                    ),
+                )
 
         else:
             consecutive_failures += 1
@@ -84,9 +105,21 @@ def monitor_website(
                     and not incident_active
             ):
                 incident_active = True
+
                 logger.error(
                     "ALERT: failure threshold reached (%d)",
                     failure_threshold,
+                )
+
+                send_notification(
+                    notifier,
+                    Notification(
+                        event_type=EventType.ALERT,
+                        message=(
+                            f"Website {url} failed "
+                            f"{consecutive_failures} consecutive checks."
+                        ),
+                    ),
                 )
 
         if max_checks is None or checks_completed < max_checks:
