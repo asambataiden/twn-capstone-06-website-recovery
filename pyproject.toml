@@ -1,0 +1,7 @@
+[project]
+name = "twn-capstone-06-website-recovery"
+version = "0.1.0"
+description = "Python-based website health monitoring and controlled recovery automation for the TWN DevOps Bootcamp."
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+dependencies = []
