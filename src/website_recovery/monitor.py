@@ -1,12 +1,12 @@
 
 """Periodic website health monitoring and incident detection."""
-
 import logging
 import time
 from collections.abc import Callable
 
 from website_recovery.health import HealthCheckResult, check_website
 from website_recovery.notifications import Notification, EventType, Notifier
+from website_recovery.recovery import DockerRestarter
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +30,26 @@ def send_notification(
             notification.event_type.value,
         )
 
+
+def attempt_recovery(
+        restarter: DockerRestarter | None,
+) -> None:
+    """Attempt configured recovery without terminating monitoring."""
+    if restarter is None:
+        return
+
+    logger.warning("RECOVERY: attempting Docker container restart")
+
+    try:
+        restarter.restart()
+    except Exception:
+        logger.exception("RECOVERY FAILED: Docker restart unsuccessful")
+    else:
+        logger.info(
+            "RECOVERY ACTION COMPLETED: waiting for health verification"
+        )
+
+
 def monitor_website(
         url: str,
         interval: float = 30.0,
@@ -39,6 +59,7 @@ def monitor_website(
         sleeper: Sleeper = time.sleep,
         max_checks: int | None = None,
         notifier: Notifier | None = None,
+        restarter: DockerRestarter | None = None,
 ) -> None:
     """Monitor a website and report incident state transitions.
 
@@ -121,6 +142,8 @@ def monitor_website(
                         ),
                     ),
                 )
+
+                attempt_recovery(restarter)
 
         if max_checks is None or checks_completed < max_checks:
             sleeper(interval)
