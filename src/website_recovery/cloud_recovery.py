@@ -8,7 +8,6 @@ confirmation string. Do not invoke against shared or production servers.
 from dataclasses import dataclass
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
-import json
 import re
 
 
