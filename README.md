@@ -4,7 +4,7 @@
 
 ## Objective
 
-Monitor an HTTP website, notify an operator when it becomes unavailable, and automatically attempt recovery by restarting the Docker application. TWN's example describes a cloud-hosted application; this repository's verified automated tests exercise a **local training implementation**.
+Monitor an HTTP website, notify an operator when it becomes unavailable, and automatically attempt recovery by restarting the Docker application. TWN's example describes a cloud-hosted application; the repository now also has **verified live Linode deployment, Telegram mobile notifications, SSH Docker recovery, and supervised Linode VM reboot evidence**.
 
 ## Architecture
 
@@ -29,7 +29,7 @@ flowchart LR
 - Reports recovery **only after a subsequent successful HTTP check**.
 - Includes automated Python tests using mocked HTTP, notification and Docker interactions.
 
-**Source:** [Python implementation](src/website_recovery/) · [Tests](tests/).
+**Source:** [Python implementation](src/website_recovery/) · [Tests](tests/) · [Linode deployment](docs/linode-website-deployment.md) · [Live SSH recovery](docs/linode-live-recovery.md).
 
 ## Run tests
 
@@ -48,9 +48,10 @@ PYTHONPATH=src uv run pytest -q
 | Failure detection and incident notifications | Unit tested |
 | Docker restart decision and command | Unit tested (mocked) |
 | Telegram delivery adapter | Unit tested (mocked) |
-| Automated suite | **17 tests passed** in archived run |
-| Live cloud-server failure, mobile alert and successful restart | **Not yet evidenced** in the repository |
-| Cloud-server reboot fallback | Implemented behind explicit configuration; offline tests added, **no live reboot claimed** |
+| Automated suite | **35 tests passed** in operator-provided live-recovery preparation run; prior 17-test archive retained |
+| Live Linode container outage, Telegram alert, SSH Docker recovery, health restoration | **Verified** — [live recovery evidence](evidence/linode-live-recovery-2026-10-25.md) |
+| Supervised Linode VM reboot and website restoration | **Verified** — [VM reboot evidence](evidence/linode-vm-reboot-2026-10-25.md) |
+| Automatic escalation to Linode VM reboot | **Not demonstrated**; opt-in fallback remains offline-tested |
 | Official TWN review | Not verified |
 
 ## Linode setup
