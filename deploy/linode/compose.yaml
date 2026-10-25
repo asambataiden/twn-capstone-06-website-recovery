@@ -1,0 +1,12 @@
+# Dedicated disposable TWN Capstone 06 web server; no other workloads.
+services:
+  website:
+    image: nginx:1.28-alpine
+    container_name: twn-recovery-website
+    labels:
+      dev.twn.capstone: "06"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    security_opt:
+      - no-new-privileges:true
