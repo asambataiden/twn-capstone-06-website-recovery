@@ -25,6 +25,7 @@ flowchart LR
 - Performs periodic HTTP checks and detects consecutive failures.
 - Sends an outage notification via Telegram (or logging during tests).
 - Attempts one controlled Docker container restart per incident when enabled.
+- Includes an **optional, explicitly authorized** Linode API server reboot fallback if the Docker restart action fails; this is not configured by default.
 - Reports recovery **only after a subsequent successful HTTP check**.
 - Includes automated Python tests using mocked HTTP, notification and Docker interactions.
 
@@ -49,9 +50,10 @@ PYTHONPATH=src uv run pytest -q
 | Telegram delivery adapter | Unit tested (mocked) |
 | Automated suite | **17 tests passed** in archived run |
 | Live cloud-server failure, mobile alert and successful restart | **Not yet evidenced** in the repository |
+| Cloud-server reboot fallback | Implemented behind explicit configuration; offline tests added, **no live reboot claimed** |
 | Official TWN review | Not verified |
 
-[Archived test results](evidence/results/pytest-results.txt) · [Evidence checklist](evidence/README.md) · [Live lab runbook](docs/deployment-runbook.md).
+[Archived test results (prior 17-test run)](evidence/results/pytest-results.txt) · [Evidence checklist](evidence/README.md) · [Live lab runbook](docs/deployment-runbook.md) · [Cloud reboot safety and opt-in](docs/cloud-recovery.md).
 
 ## Safety and scope
 
