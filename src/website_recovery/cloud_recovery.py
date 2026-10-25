@@ -5,7 +5,7 @@ A caller must provide the exact approved instance ID and an explicit
 confirmation string. Do not invoke against shared or production servers.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 import re
@@ -20,7 +20,7 @@ class LinodeServerRebooter:
     """Reboot one explicitly authorized Linode instance via the v4 API."""
 
     instance_id: int
-    api_token: str
+    api_token: str = field(repr=False)
     confirmation: str
     timeout: float = 10.0
 
