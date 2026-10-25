@@ -59,6 +59,14 @@ install_docker() {
     die "Docker repository file exists with unexpected content. Review manually."
   fi
 
+  if dpkg-query -W -f='${db:Status-Status}' docker-ce 2>/dev/null | grep -qx installed &&
+      docker info >/dev/null 2>&1 &&
+      docker compose version >/dev/null 2>&1; then
+    log "Docker Engine and Compose already work; no installation or upgrade performed."
+    report
+    return
+  fi
+
   export DEBIAN_FRONTEND=noninteractive
   apt-get update
   apt-get install -y --no-install-recommends ca-certificates curl
