@@ -53,6 +53,22 @@ PYTHONPATH=src uv run pytest -q
 | Cloud-server reboot fallback | Implemented behind explicit configuration; offline tests added, **no live reboot claimed** |
 | Official TWN review | Not verified |
 
+## Linode setup
+
+For a new **Ubuntu 24.04 AMD64** cloud server, use the guarded [Docker bootstrap script](scripts/setup-linode-docker.sh). It installs Docker Engine and the Compose plugin from Docker's official APT repository. It **does not** configure firewall rules, SSH, Nginx or cloud resources.
+
+On your Mac (after checking out the feature branch), transfer the script securely to the server, then check and install:
+
+```bash
+scp scripts/setup-linode-docker.sh root@YOUR_LINODE_IP:/root/
+ssh root@YOUR_LINODE_IP
+bash -n /root/setup-linode-docker.sh
+bash /root/setup-linode-docker.sh --check
+bash /root/setup-linode-docker.sh --install
+```
+
+Confirm the Linode Cloud Firewall restricts SSH and permits only the intended website port **before deploying Nginx**. Avoid using `curl | bash`.
+
 [Archived test results (prior 17-test run)](evidence/results/pytest-results.txt) · [Evidence checklist](evidence/README.md) · [Live lab runbook](docs/deployment-runbook.md) · [Cloud reboot safety and opt-in](docs/cloud-recovery.md).
 
 ## Safety and scope
