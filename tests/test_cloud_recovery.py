@@ -1,6 +1,6 @@
 """Offline tests for opt-in cloud-server reboot handling."""
 
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
@@ -41,10 +41,9 @@ def test_rejects_empty_api_token():
 
 
 def test_api_request_is_scoped_and_uses_post():
-    response = Mock()
+    response = MagicMock()
     response.status = 200
-    response.__enter__ = Mock(return_value=response)
-    response.__exit__ = Mock(return_value=False)
+    response.__enter__.return_value = response
 
     with patch("website_recovery.cloud_recovery.urlopen", return_value=response) as opener:
         rebooter().restart()
