@@ -51,7 +51,7 @@ PYTHONPATH=src uv run pytest -q
 | Automated suite | **35 tests passed** in operator-provided live-recovery preparation run; prior 17-test archive retained |
 | Live Linode container outage, Telegram alert, SSH Docker recovery, health restoration | **Verified** — [live recovery evidence](evidence/linode-live-recovery-2026-10-25.md) |
 | Supervised Linode VM reboot and website restoration | **Verified** — [VM reboot evidence](evidence/linode-vm-reboot-2026-10-25.md) |
-| Automatic escalation to Linode VM reboot | **Not demonstrated**; opt-in fallback remains offline-tested |
+| Linode reboot fallback after a primary recovery error | Verified with an injected Docker failure and a real VM reboot; see [live fallback evidence](evidence/linode-live-fallback-2026-10-25.md) |
 | Official TWN review | Not verified |
 
 ## Linode setup
