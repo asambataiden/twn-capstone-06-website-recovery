@@ -12,10 +12,10 @@ This short summary provides a reviewer entry point; the main README and linked p
 
 ## Reviewer navigation
 
-- [`README.md`](../../README.md)
-- [`docs/architecture.md`](../../docs/architecture.md)
-- [`docs/deployment-runbook.md`](../../docs/deployment-runbook.md)
-- [`evidence/linode-live-recovery-2026-10-25.md`](../../evidence/linode-live-recovery-2026-10-25.md)
+- [`README.md`](../README.md)
+- [`docs/architecture.md`](../docs/architecture.md)
+- [`docs/deployment-runbook.md`](../docs/deployment-runbook.md)
+- [`evidence/linode-live-recovery-2026-10-25.md`](../evidence/linode-live-recovery-2026-10-25.md)
 
 ## Verification qualification
 
