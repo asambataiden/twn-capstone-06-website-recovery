@@ -76,4 +76,4 @@ Confirm the Linode Cloud Firewall restricts SSH and permits only the intended we
 
 Run recovery experiments **only on a disposable, explicitly authorized Docker container**. Docker daemon access is privileged; the standalone recovery adapter validates container name format, not ownership. Keep Telegram credentials outside source control. The monitor uses in-memory incident state and is not a production HA controller.
 
-**TWN submission:** [`main` branch](https://github.com/asambataiden/twn-capstone-06-website-recovery/tree/main), subject to evidence completion, reviewer access and security review.
+**Reviewer access:** The [`main` branch](https://github.com/asambataiden/twn-capstone-06-website-recovery/tree/main) is public. Git history was screened using Gitleaks with no findings; the recorded evidence is historical and independent of badge acceptance.
